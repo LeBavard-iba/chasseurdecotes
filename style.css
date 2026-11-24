@@ -56,6 +56,21 @@ footer{background:var(--nuit);color:#c9d0e8;padding:36px 0;font-size:.9rem;margi
 @media (max-width:820px){.hero .wrap,.offres{grid-template-columns:1fr}.grille3{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}
 nav{margin-left:0;width:100%;padding-bottom:8px}.hero{padding:36px 0 44px}section{padding:40px 0}}
 :root{--titre:'Barlow Condensed',Inter,sans-serif;--titre-espace:.01em;--nuit:#0a1633;--jaune:#ffc400;--jaune-fonce:#b88a00;--fond:#f3f5f9}@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--fond:#060d22;--carte:#0e1a3a;--bord:#1e2d5c}}h1{text-transform:uppercase;font-weight:800;font-size:clamp(2.4rem,7vw,4rem)}h2{text-transform:uppercase;font-weight:700}
+.ticker{display:block;overflow:hidden;background:#0b1430;color:#d7ddf0;font-size:.85rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.ticker .piste{display:flex;width:max-content;animation:defile 60s linear infinite}.ticker .piste div{padding:7px 0;white-space:nowrap}
+.ticker span{padding:0 6px}.ticker:hover .piste{animation-play-state:paused}
+@keyframes defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.point-direct{display:inline-block;width:10px;height:10px;border-radius:50%;background:#e5484d;margin-right:6px;vertical-align:middle;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.liste-direct{padding:4px 12px}.ligne-direct{display:grid;grid-template-columns:1fr 78px 92px;gap:6px;align-items:center;padding:8px 0;border-top:1px solid var(--bord)}
+.ligne-direct:first-child{border-top:0}.ligne-direct .eq div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ligne-direct .fav{font-weight:700}
+.ligne-direct .sc{font-family:var(--titre);font-size:1.25rem;font-weight:700;text-align:center;line-height:1.1}.ligne-direct .sc small{display:block;font-family:Inter,sans-serif;font-size:.7rem;font-weight:500;color:#e5484d}
+.ligne-direct .drapeau{font-size:.75rem;font-weight:700;text-align:right}.alerte-fav{background:rgba(229,72,77,.08);border-radius:10px;padding-left:6px;padding-right:6px}
+.alerte.nouvelle{animation:nouvelle 2.4s ease-in-out 3;border-color:var(--jaune)}
+@keyframes nouvelle{0%,100%{box-shadow:0 0 0 0 rgba(255,196,0,0)}50%{box-shadow:0 0 0 4px rgba(255,196,0,.35)}}
+.prochain{margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){.ticker .piste,.point-direct,.alerte.nouvelle{animation:none}}
+
 /* --- version compacte, pensée téléphone (22/11) --- */
 body{font-size:15px;line-height:1.5}
 h1{font-size:clamp(1.6rem,5vw,2.4rem)!important}h2{font-size:1.2rem!important;margin:0}h3{font-size:1rem}
