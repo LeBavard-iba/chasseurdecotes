@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://lebavard-iba.github.io/chasseurdecotes/sitemap.xml
+Sitemap: https://chasseur-de-cotes.github.io/sitemap.xml
