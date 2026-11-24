@@ -81,6 +81,9 @@ section.serre{padding:16px 0 8px}
 .match .c i{font-style:normal;font-size:.65rem;margin-left:2px}.best{font-size:.88rem;padding:2px 5px}
 .onglets{display:flex;gap:6px;overflow-x:auto;margin:12px 0 4px;padding-bottom:4px}.onglets a{flex:none;text-decoration:none;border:1px solid var(--bord);background:var(--carte);padding:5px 12px;border-radius:999px;font-size:.85rem}
 section.serre h2[id]{margin:18px 0 8px;scroll-margin-top:70px}
+.chasseur{margin:18px 0 4px;border:2px solid var(--jaune);position:relative}.chasseur h3{font-size:1.3rem;margin:4px 0 6px}
+.chasseur p{margin:6px 0}.badge-prive{display:inline-block;font-size:.72rem;font-weight:700;background:var(--jaune);color:var(--sur-accent);padding:3px 10px;border-radius:999px}
+.prix-l{font-size:1.02rem}.chasseur .cta{margin-top:12px}
 .appel{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 4px;border:2px solid var(--jaune)}
 details{padding:10px 14px;margin-bottom:8px}details p{margin:8px 0 2px;font-size:.92rem}
 .kpis{gap:8px}.kpi{padding:10px 12px}.kpi b{font-size:1.25rem}.kpi span{font-size:.78rem}
