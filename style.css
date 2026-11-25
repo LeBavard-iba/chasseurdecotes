@@ -107,3 +107,14 @@ footer{padding:22px 0;font-size:.82rem;margin-top:24px}
  .bandeau .wrap{flex-direction:column;align-items:flex-start;gap:8px}.kpis{grid-template-columns:1fr 1fr}}
 @media (max-width:420px){.marque span.nom{display:none}nav a{padding:5px 7px;font-size:.84rem}
  .tete-cotes,.match{grid-template-columns:1fr 54px 54px 54px}}
+
+.etoile{background:none;border:0;padding:0 6px 0 0;margin:0;font-size:1.05rem;line-height:1;cursor:pointer;color:var(--doux);vertical-align:-1px}
+.etoile.on{color:#ffc400}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}.chips button{border:1px solid var(--bord);background:var(--carte);color:var(--texte);border-radius:99px;padding:5px 11px;font:inherit;font-size:.88rem;cursor:pointer}
+.ligne-direct.d3{grid-template-columns:minmax(0,1fr) 62px 84px}.ligne-direct.d3 .drapeau{overflow:hidden;line-height:1.35}.ligne-direct.d3 .drapeau .mini{font-weight:600}.ligne-direct .eq div,.ligne-prog .eq div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seconde{display:inline-block;margin-top:3px;font-size:.75rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.liste-prog{padding:4px 12px}.ligne-prog{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--bord)}
+.ligne-prog:first-child{border-top:0}.ligne-prog .h{font-weight:700;font-size:.9rem}.ligne-prog .h small{display:block;font-weight:500;font-size:.7rem;color:var(--doux);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ligne-prog .cm{font-size:.78rem;color:var(--doux);text-align:right;white-space:nowrap}
+.suivi{background:rgba(255,196,0,.08);border-radius:10px;padding-left:6px;padding-right:6px}
+.jour-prog{font-weight:700;margin:18px 0 6px;font-size:.95rem}

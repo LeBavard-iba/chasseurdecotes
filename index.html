@@ -7,7 +7,7 @@
 <div id="age" role="dialog" aria-modal="true" aria-labelledby="age-t"><div class="carte"><img src="logo.png" alt="" width="72" height="72" style="border-radius:14px">
 <h2 id="age-t">Réservé aux 18 ans et plus</h2><p>Ce site donne des informations sur les cotes des paris sportifs. Il est interdit aux mineurs.</p>
 <button class="btn" id="age-ok">J'ai 18 ans ou plus</button><p class="mini" style="margin-top:14px"><a href="https://www.joueurs-info-service.fr/">Joueurs Info Service</a> · 09 74 75 13 13</p></div></div>
-<header class="top"><div class="wrap"><a class="marque" href="index.html"><img src="logo.png" alt=""><span class="nom">Chasseur de Cotes</span></a><nav><a href="index.html" class=actif>Accueil</a><a href="comparateur.html">Cotes</a><a href="historique.html">Historique</a><a href="methode.html">Méthode</a></nav></div></header>
+<header class="top"><div class="wrap"><a class="marque" href="index.html"><img src="logo.png" alt=""><span class="nom">Chasseur de Cotes</span></a><nav><a href="index.html" class=actif>Accueil</a><a href="direct.html">🔴 Direct</a><a href="comparateur.html">Cotes</a><a href="historique.html">Historique</a><a href="methode.html">Méthode</a></nav></div></header>
 <main><a class="ticker" href="historique.html" aria-label="Dernières alertes, gagnées et perdues"><div class="piste"><div><span>🎯 Como 1,50 → ✅ gagné +50 €</span> · <span>🎯 Manchester City 1,50 → ❌ perdu −100 €</span> · <span>👀 Real Madrid 1,80 → ✅ gagné +80 €</span> · <span>🎯 Werder Bremen 2,05 → ✅ gagné +105 €</span> · <span>👀 Real Sociedad 4,00 → ❌ perdu −100 €</span> · <span>🎯 Paris FC 1,53 → ✅ gagné +53 €</span> · <span>🎯 Juventus 1,80 → ✅ gagné +80 €</span> · <span>👀 Real Madrid 1,73 → ✅ gagné +73 €</span> · </div><div aria-hidden="true"><span>🎯 Como 1,50 → ✅ gagné +50 €</span> · <span>🎯 Manchester City 1,50 → ❌ perdu −100 €</span> · <span>👀 Real Madrid 1,80 → ✅ gagné +80 €</span> · <span>🎯 Werder Bremen 2,05 → ✅ gagné +105 €</span> · <span>👀 Real Sociedad 4,00 → ❌ perdu −100 €</span> · <span>🎯 Paris FC 1,53 → ✅ gagné +53 €</span> · <span>🎯 Juventus 1,80 → ✅ gagné +80 €</span> · <span>👀 Real Madrid 1,73 → ✅ gagné +73 €</span> · </div></div></a><div class="bandeau"><div class="wrap"><p>Les meilleures cotes des bookmakers français, les cotes du jour et une alerte quand un match bascule. <b>Gratuit · 18+</b></p>
 <div class="cta" style="margin:0"><a class="btn petit" href="https://t.me/ChasseurDeCotes">Canal gratuit</a><a class="btn petit ghost" href="https://t.me/+0855fUGvmDIwYjhk">🔒 Le Chasseur</a></div></div></div>
 <section class="serre"><div class="wrap">
@@ -55,7 +55,7 @@ function rendre(d){
   if(!box)return;
   var frais=d&&d.maj&&(Date.now()/1000-d.maj<MAX)&&d.matchs&&d.matchs.length;
   if(!frais){box.hidden=true;var p=document.getElementById('prochain');if(p&&d&&d.prochain){var dd=new Date(d.prochain*1000),auj=new Date();var jour=dd.toDateString()===auj.toDateString()?"aujourd'hui":(new Date(auj.getTime()+864e5).toDateString()===dd.toDateString()?'demain':'le '+dd.getDate()+'/'+(dd.getMonth()+1));p.hidden=false;p.querySelector('i').textContent=jour;p.querySelector('b').textContent=heure(d.prochain);}return;}
-  var h='<div class="titre-bloc"><h2><span class="point-direct"></span> En direct</h2><span class="mini" data-ilya="'+d.maj+'"></span></div><div class="carte liste-direct">';
+  var h='<div class="titre-bloc"><h2><span class="point-direct"></span> En direct</h2><a href="direct.html">Tout le direct →</a></div><div class="carte liste-direct">';
   d.matchs.forEach(function(m){
     var st=m.statut==='HT'?'Mi-temps':(m.minute?m.minute+"'":'');
     var dom=m.fav==='dom'?' fav':'', ext=m.fav==='ext'?' fav':'';
@@ -63,7 +63,7 @@ function rendre(d){
      +'<div class="sc">'+(m.buts[0]==null?'-':m.buts[0])+' - '+(m.buts[1]==null?'-':m.buts[1])+'<small>'+st+'</small></div>'
      +(m.fav_mene?'<div class="drapeau" title="Le favori est mené">🔴 favori mené</div>':(m.rouges?'<div class="drapeau">🟥</div>':'<div></div>'))+'</div>';
   });
-  h+='</div><p class="mini">Scores relevés toutes les 5 à 15 min. Le vrai direct, à la seconde, c’est sur Telegram.</p>';
+  h+='</div><p class="mini">Mis à jour <span data-ilya="'+d.maj+'"></span> · <a href="direct.html">⚡ score à la seconde et ⭐ tes équipes</a></p>';
   box.innerHTML=h;box.hidden=false;maj();
 }
 function charger(){
