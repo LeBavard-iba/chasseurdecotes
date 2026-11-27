@@ -1,0 +1,91 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fiche match : cotes et direct | Chasseur de Cotes</title><meta name="description" content="Les cotes des bookmakers agréés en France, le score, les buts et les statistiques du match."><link rel="canonical" href="https://chasseur-de-cotes.github.io/match.html">
+<meta property="og:title" content="Fiche match : cotes et direct | Chasseur de Cotes"><meta property="og:description" content="Les cotes des bookmakers agréés en France, le score, les buts et les statistiques du match."><meta property="og:image" content="logo.png">
+<link rel="icon" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body data-nb-alertes="20">
+<div id="age" role="dialog" aria-modal="true" aria-labelledby="age-t"><div class="carte"><img src="logo.png" alt="" width="72" height="72" style="border-radius:14px">
+<h2 id="age-t">Réservé aux 18 ans et plus</h2><p>Ce site donne des informations sur les cotes des paris sportifs. Il est interdit aux mineurs.</p>
+<button class="btn" id="age-ok">J'ai 18 ans ou plus</button><p class="mini" style="margin-top:14px"><a href="https://www.joueurs-info-service.fr/">Joueurs Info Service</a> · 09 74 75 13 13</p></div></div>
+<header class="top"><div class="wrap"><a class="marque" href="index.html"><img src="logo.png" alt=""><span class="nom">Chasseur de Cotes</span></a><nav><a href="index.html">Accueil</a><a href="direct.html">🔴 Direct</a><a href="comparateur.html" class=actif>Cotes</a><a href="historique.html">Historique</a><a href="methode.html">Méthode</a></nav></div></header>
+<main><section class="serre"><div class="wrap fiche" id="fiche"><div class="carte vide">Chargement du match…</div></div>
+<p class="wrap mini"><a href="comparateur.html">← Toutes les cotes</a> · <a href="direct.html">🔴 Tous les matchs en direct</a></p></section></main><script>(function(){
+function lireFav(){try{return JSON.parse(localStorage.getItem('favoris')||'[]')}catch(x){return []}}
+function ecrireFav(l){try{localStorage.setItem('favoris',JSON.stringify(l))}catch(x){}}
+function norm(x){return String(x).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z ]/g,' ').split(/\s+/).filter(function(t){return t&&['fc','cf','ac','as','sc','ssc','rc','afc','club','de','the'].indexOf(t)<0;});}
+function meme(a,b){var A=norm(a),B=norm(b);if(!A.length||!B.length)return false;var c=A.length<=B.length?[A,B]:[B,A];
+  if(c[0].length<2)return A.join(' ')===B.join(' ');return c[0].every(function(t){return c[1].indexOf(t)>=0;});}
+function estFav(n){return lireFav().some(function(f){return meme(f,n);});}
+function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+var id=new URLSearchParams(location.search).get('id')||'',box=document.getElementById('fiche'),MAX=20*60,minuteur=null;
+function fc(x){return x?Number(x).toFixed(2).replace('.',','):'–';}
+function quand(iso){var d=new Date(iso),j=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'][d.getDay()];
+  return j+' '+('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+' · '+d.getHours()+' h '+('0'+d.getMinutes()).slice(-2);}
+function etoile(n){var on=estFav(n);return '<button class="etoile'+(on?' on':'')+'" data-eq="'+esc(n)+'" aria-pressed="'+on+'" aria-label="Suivre '+esc(n)+'">'+(on?'★':'☆')+'</button>';}
+function stats(l){
+  var s=l.stats;if(!s)return '';
+  var noms=[['poss','Possession (%)'],['tirs','Tirs'],['cadres','Tirs cadrés'],['corners','Corners'],['xg','Buts attendus (xG)']],h='';
+  noms.forEach(function(k){var v=s[k[0]];if(!v||(v[0]+v[1])===0)return;var p=Math.round(100*v[0]/(v[0]+v[1]));
+    h+='<div class="l"><span class="nom">'+k[1]+'</span><span>'+v[0]+'</span><span class="barre"><i style="width:'+p+'%"></i><i style="width:'+(100-p)+'%"></i></span><span>'+v[1]+'</span></div>';});
+  var poids=function(i){return (s.cadres?s.cadres[i]*3:0)+(s.tirs?s.tirs[i]:0)+(s.corners?s.corners[i]:0)+(s.poss?s.poss[i]/10:0)+(s.xg?s.xg[i]*4:0);};
+  var a=poids(0),b=poids(1),d='';
+  if(a+b>0){var p=Math.round(100*a/(a+b));d=p>=56?'💪 '+esc(l.dom)+' domine ('+p+' %)':p<=44?'💪 '+esc(l.ext)+' domine ('+(100-p)+' %)':'⚖️ Match équilibré';}
+  return '<h2>Qui domine ?</h2><div class="carte stat">'+(d?'<div class="domine">'+d+'</div>':'')+h+'</div>';
+}
+function chrono(l){
+  if(!l.ev||!l.ev.length)return '';
+  var ic={but:'⚽',pen:'⚽ (pen.)',csc:'⚽ (c.s.c.)',rouge:'🟥'};
+  var ev=l.ev.slice().sort(function(a,b){return parseFloat(a.min)-parseFloat(b.min);});
+  return '<h2>Le match</h2><div class="carte chrono">'+ev.map(function(x){return '<div class="'+x.eq+'"><b>'+esc(x.min)+'’</b><span>'+ic[x.k]+' '+esc(x.j)+'</span></div>';}).join('')+'</div>';
+}
+function tabCotes(c){
+  if(!c)return '';
+  var bk=Object.keys(c.cotes||{}),mx=[0,1,2].map(function(i){return Math.max.apply(null,bk.map(function(b){return c.cotes[b][i]||0;}));});
+  var h='<h2>Les cotes</h2><div class="carte" style="padding:4px 12px"><table class="tab-cotes"><thead><tr><th>Bookmaker</th><th>1</th><th>N</th><th>2</th></tr></thead><tbody>';
+  bk.forEach(function(b){h+='<tr><td>'+esc(b)+'</td>'+[0,1,2].map(function(i){var v=c.cotes[b][i];return '<td'+(v&&v===mx[i]?' class="top"':'')+'>'+fc(v)+'</td>';}).join('')+'</tr>';});
+  if(c.premieres)h+='<tr><td class="mini">Notre 1er relevé (meilleure)</td>'+c.premieres.map(function(v){return '<td class="mini">'+fc(v)+'</td>';}).join('')+'</tr>';
+  return h+'</tbody></table></div><p class="mini">Cotes d’avant-match des bookmakers agréés en France. En vert : la meilleure.</p>';
+}
+function rendre(cotes,live){
+  var c=(cotes.matchs||[]).filter(function(m){return m.id===id;})[0]||null;
+  var frais=live&&live.maj&&(Date.now()/1000-live.maj<MAX);
+  var l=(live.matchs||[]).filter(function(x){return (c&&x.cid===c.id)||('f'+x.id)===id;})[0]||null;
+  if(l&&!c&&l.cid)c=(cotes.matchs||[]).filter(function(m){return m.id===l.cid;})[0]||null;
+  if(!c&&!l){box.innerHTML='<div class="carte vide">Ce match n’est plus dans nos données. <a href="comparateur.html">Voir tous les matchs →</a></div>';return;}
+  var dom=c?c.dom:l.dom,ext=c?c.ext:l.ext,ch=c?c.ch:l.ligue,enCours=l&&frais;
+  document.title=dom+' - '+ext+' : cotes et direct | Chasseur de Cotes';
+  var sc='vs',sous=c?quand(c.debut).split(' · ')[1]:'',cl='';
+  if(enCours){sc=(l.buts[0]==null?'-':l.buts[0])+' - '+(l.buts[1]==null?'-':l.buts[1]);sous=l.statut==='HT'?'Mi-temps':(l.minute?'🔴 '+l.minute+'’':'🔴 En direct');cl=' class="live"';}
+  else if(c&&new Date(c.debut)<new Date()){sous='Commencé ou terminé';}
+  var al=enCours&&l.alerte?'<div class="badge-alerte">'+(l.alerte==='opportunite'?'🎯 Opportunité':'👀 Situation à suivre')+' à la mi-temps</div>':'';
+  var q='https://www.google.com/search?q='+encodeURIComponent(dom+' '+ext);
+  var h='<div class="carte fiche-tete"><div class="mini">'+esc(ch)+(c?' · '+quand(c.debut):'')+'</div>'
+   +'<div class="duel"><div class="eq-f">'+etoile(dom)+esc(dom)+'</div><div class="score-f">'+sc+'<small'+cl+'>'+sous+'</small></div><div class="eq-f">'+etoile(ext)+esc(ext)+'</div></div>'
+   +al+'<div><a class="seconde" href="'+q+'" target="_blank" rel="noopener">⚡ Score à la seconde</a></div></div>';
+  if(enCours){h+=chrono(l)+stats(l);
+    if(!l.stats)h+='<p class="mini">Statistiques détaillées (possession, tirs…) : pour les matchs qui ont reçu une alerte.</p>';
+    h+='<p class="mini">Score mis à jour toutes les 2 à 10 min selon le match.</p>';}
+  h+=tabCotes(c);
+  h+='<div class="carte appel" style="margin-top:18px"><div><b>Les alertes partent en direct sur Telegram</b><div class="mini">Opportunités de mi-temps et buts des matchs en alerte.</div></div><a class="btn" href="https://t.me/ChasseurDeCotes">Rejoindre</a></div>';
+  box.innerHTML=h;
+  clearTimeout(minuteur);
+  if(c&&Math.abs(Date.now()-new Date(c.debut))<3*3600*1000||enCours)minuteur=setTimeout(charger,60000);
+}
+var dc=null,dl=null;
+function charger(){Promise.all([
+  fetch('cotes.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return {matchs:[]};}),
+  fetch('live.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return {matchs:[]};})
+]).then(function(r){dc=r[0];dl=r[1];rendre(dc,dl);});}
+document.addEventListener('click',function(ev){var b=ev.target.closest('.etoile');if(!b)return;var n=b.getAttribute('data-eq'),l=lireFav();
+  if(estFav(n))l=l.filter(function(f){return !meme(f,n);});else l.push(n);ecrireFav(l);if(dc)rendre(dc,dl);});
+charger();
+})();</script>
+<footer><div class="wrap"><p class="legal"><strong>18+</strong> · Information sur les cotes, aucune garantie de gain. Réservé aux 18 ans et plus. Jouer comporte des risques : endettement, dépendance… Appelez le 09 74 75 13 13 (appel non surtaxé).</p>
+<p>Chasseur de Cotes donne de l'<strong>information</strong> sur les cotes et les statistiques : ce ne sont pas des pronostics. Aucun lien ni partenariat avec les bookmakers.
+Seuls des opérateurs agréés par l'<a href="https://anj.fr/">ANJ</a> sont cités.</p>
+<p><a href="https://t.me/ChasseurDeCotes">Canal Telegram</a> · <a href="methode.html">Méthode</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="https://www.joueurs-info-service.fr/">Joueurs Info Service</a></p>
+<p class="mini" style="color:#8f9bc4">Version bêta gratuite · Mise à jour : vendredi 27 novembre</p></div></footer>
+<script>(function(){var ok=false;try{ok=localStorage.getItem('age18')==='1'}catch(x){}var d=document.getElementById('age');if(!ok)d.style.display='flex';
+document.getElementById('age-ok').onclick=function(){try{localStorage.setItem('age18','1')}catch(x){}d.style.display='none'};})();</script>
+</body></html>

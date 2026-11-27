@@ -118,3 +118,29 @@ footer{padding:22px 0;font-size:.82rem;margin-top:24px}
 .ligne-prog .cm{font-size:.78rem;color:var(--doux);text-align:right;white-space:nowrap}
 .suivi{background:rgba(255,196,0,.08);border-radius:10px;padding-left:6px;padding-right:6px}
 .jour-prog{font-weight:700;margin:18px 0 6px;font-size:.95rem}
+
+[hidden]{display:none!important}
+.filtres{position:sticky;top:60px;z-index:4;background:var(--fond);padding:10px 0 6px;margin:0 0 6px}
+.filtres input{width:100%;font:inherit;font-size:1rem;padding:9px 12px;border:1px solid var(--bord);border-radius:12px;background:var(--carte);color:var(--texte);margin:0 0 8px}
+.chips.ligne-x{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.chips.ligne-x::-webkit-scrollbar{display:none}
+.chips button{flex:none;white-space:nowrap}.chips button.on{background:var(--jaune);color:var(--sur-accent);border-color:var(--jaune);font-weight:700}
+.chips button:disabled{opacity:.45}
+a.match{text-decoration:none;color:inherit}a.match:hover .eq div:not(.mini){text-decoration:underline}
+.match .eq .mini{font-size:.72rem}
+.fiche-tete{text-align:center;padding:16px 14px}
+.duel{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center;margin:10px 0}
+.duel .eq-f{font-family:var(--titre);font-weight:700;font-size:1.25rem;line-height:1.15;overflow-wrap:anywhere}
+.duel .score-f{font-family:var(--titre);font-weight:800;font-size:2.2rem;line-height:1;white-space:nowrap}.duel .score-f small{display:block;font-family:Inter,sans-serif;font-size:.8rem;font-weight:600;color:var(--doux);margin-top:4px}
+.duel .score-f small.live{color:var(--rouge)}
+.badge-alerte{display:inline-block;margin:6px 0 2px;padding:4px 12px;border-radius:999px;font-weight:700;font-size:.85rem;background:var(--accent-doux);color:var(--accent-texte)}
+.fiche h2{font-size:1.25rem;margin:22px 0 8px}
+.chrono{padding:6px 14px}.chrono div{display:flex;gap:8px;padding:6px 0;border-top:1px solid var(--bord);font-size:.92rem}.chrono div:first-child{border-top:0}
+.chrono div.ext{flex-direction:row-reverse;text-align:right}.chrono b{min-width:42px}
+.stat{padding:8px 14px}.stat .l{display:grid;grid-template-columns:44px 1fr 44px;gap:8px;align-items:center;font-size:.88rem;padding:5px 0}
+.stat .l span:last-child{text-align:right}.stat .barre{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--bord)}
+.stat .barre i{display:block;background:var(--jaune)}.stat .barre i+i{background:var(--nuit2)}.stat .nom{font-size:.75rem;color:var(--doux);text-align:center;grid-column:1/-1;margin-bottom:-4px}
+.domine{font-weight:700;text-align:center;padding:6px 0 2px}
+.tab-cotes{width:100%;border-collapse:collapse;font-size:.92rem}.tab-cotes th,.tab-cotes td{padding:8px 6px;border-top:1px solid var(--bord);text-align:center}
+.tab-cotes th:first-child,.tab-cotes td:first-child{text-align:left}.tab-cotes thead th{border-top:0;font-size:.75rem;color:var(--doux)}
+.tab-cotes td.top{font-weight:800;color:var(--vert)}
+@media (max-width:640px){.filtres{top:52px}.duel .eq-f{font-size:1.05rem}.duel .score-f{font-size:1.9rem}}
